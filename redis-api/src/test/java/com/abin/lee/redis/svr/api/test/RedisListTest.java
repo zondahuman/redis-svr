@@ -14,7 +14,7 @@ import java.util.List;
 public class RedisListTest {
 
     @Test
-    public void testRedisList(){
+    public void testRedisList1(){
         String key1 = "name1" ;
         String key2 = "name2" ;
         String temp2 = "tempname2" ;
@@ -31,8 +31,38 @@ public class RedisListTest {
     }
 
 
+    @Test
+    public void testRedisList2(){
+        String key1 = "name1" ;
+        String key2 = "name2" ;
+        String temp2 = "tempname2" ;
+        String param1 = "lee1" ;
+        String[] param2 = {"lee2", "lee3"} ;
+        RedisUtil.getJedis().lpush(key1, param1);
+        String result1 = RedisUtil.getJedis().rpop(key1);
+        System.out.println("result1="+result1);
+        RedisUtil.getJedis().lpush(key2, param2);
+        List<String> result2 = RedisUtil.getJedis().brpop(1000, key2);
+//        List<String> result2 = RedisUtil.getJedis().brpoplpush(key2, temp2, 1000);
+//        String result2 = RedisUtil.getJedis().brpoplpush(key2, temp2, 1000);
+        System.out.println("result2="+ JsonUtil.toJson(result2));
+    }
 
-
+    @Test
+    public void testRedisList3(){
+        String key2 = "order" ;
+        String key2_value = "beijing fire pan" ;
+        String key2_ext = "orderext" ;
+        RedisUtil.getJedis().lpush(key2, key2_value);
+//        List<String> result2 = RedisUtil.getJedis().brpop(1000, key2);
+//        List<String> result2 = RedisUtil.getJedis().brpoplpush(key2, temp2, 1000);
+        String result2 = RedisUtil.getJedis().brpoplpush(key2, key2_ext, 1000);
+        System.out.println("result2="+ JsonUtil.toJson(result2));
+        List<String> key2List = RedisUtil.getJedis().lrange(key2, 0, 1000);
+        System.out.println("key2List="+ JsonUtil.toJson(key2List));
+        List<String> key2ExtList = RedisUtil.getJedis().lrange(key2_ext, 0, 1000);
+        System.out.println("key2ExtList="+ JsonUtil.toJson(key2ExtList));
+    }
 
 
 
