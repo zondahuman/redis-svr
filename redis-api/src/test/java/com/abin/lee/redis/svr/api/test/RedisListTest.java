@@ -62,6 +62,11 @@ public class RedisListTest {
         System.out.println("key2List="+ JsonUtil.toJson(key2List));
         List<String> key2ExtList = RedisUtil.getJedis().lrange(key2_ext, 0, 1000);
         System.out.println("key2ExtList="+ JsonUtil.toJson(key2ExtList));
+
+        Long key2Length = RedisUtil.getJedis().llen(key2);
+        System.out.println("key2Length="+ JsonUtil.toJson(key2Length));
+        Long key2ExtLength = RedisUtil.getJedis().llen(key2_ext);
+        System.out.println("key2ExtLength="+ JsonUtil.toJson(key2ExtLength));
     }
 
 
