@@ -69,7 +69,24 @@ public class RedisListTest {
         System.out.println("key2ExtLength="+ JsonUtil.toJson(key2ExtLength));
     }
 
+    @Test
+    public void testRedisList4(){
+        String key1 = "name1" ;
+        String key2 = "name2" ;
+        String temp2 = "tempname2" ;
+        String param1 = "lee1" ;
+        String[] param2 = {"lee2", "lee3"} ;
 
+
+        RedisUtil.getJedis().lpush(key2, param2);
+//        List<String> result2 = RedisUtil.getJedis().brpop(1000, key2);
+//        List<String> result2 = RedisUtil.getJedis().brpoplpush(key2, temp2, 1000);
+        String result2 = RedisUtil.getJedis().rpoplpush(key2, temp2);
+        System.out.println("result2="+ JsonUtil.toJson(result2));
+
+        String result4 = RedisUtil.getJedis().brpoplpush(key2, temp2, 1000);
+        System.out.println("result4="+ JsonUtil.toJson(result2));
+    }
 
 
 
